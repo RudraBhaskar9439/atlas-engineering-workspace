@@ -15,7 +15,7 @@
 </p>
 
 <p align="center">
-  <a href="docs/assets/atlas-demo.mp4"><strong>Watch the demo · 2:53</strong></a>
+  <a href="https://youtu.be/CLKu3n00Kac"><strong>Watch the demo · 2:53</strong></a>
   &nbsp;·&nbsp;
   <a href="#run-locally">Run locally</a>
   &nbsp;·&nbsp;
@@ -36,9 +36,9 @@ Project context persists in Atlas across model changes and application restarts.
 
 ## See it in action
 
-[![Atlas company knowledge graph, showing sample people, services, changes, and decisions](docs/assets/company-brain.png)](docs/assets/atlas-demo.mp4)
+[![Atlas company knowledge graph, showing sample people, services, changes, and decisions](docs/assets/company-brain.png)](https://youtu.be/CLKu3n00Kac)
 
-**[Watch or download the narrated product walkthrough →](docs/assets/atlas-demo.mp4)**
+**[Watch the narrated product walkthrough on YouTube →](https://youtu.be/CLKu3n00Kac)** · [Download the MP4](docs/assets/atlas-demo.mp4)
 
 The walkthrough combines clearly identified **sample company records** with a real issue-to-draft workflow in [mahmoud/boltons](https://github.com/mahmoud/boltons). It distinguishes passing isolated checks from native GitHub CI, which remains unverified for the draft.
 
