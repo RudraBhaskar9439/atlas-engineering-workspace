@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420" role="img" aria-labelledby="title description">
+  <title id="title">Atlas — your team's engineering memory</title>
+  <desc id="description">A shared engineering workspace connecting people, code, decisions, and evidence. Built on FalkorDB.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#0b1324"/>
+      <stop offset="1" stop-color="#162540"/>
+    </linearGradient>
+    <radialGradient id="glow">
+      <stop stop-color="#647bff" stop-opacity=".13"/>
+      <stop offset="1" stop-color="#647bff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1280" height="420" rx="20" fill="url(#background)"/>
+  <ellipse cx="1080" cy="200" rx="300" ry="280" fill="url(#glow)"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <rect x="56" y="46" width="56" height="56" rx="14" fill="#243657"/>
+    <g fill="#93adff" transform="translate(61 51) scale(.72) rotate(-17 32 32)">
+      <rect x="15" y="28" width="8" height="20" rx="4"/>
+      <rect x="28" y="19" width="8" height="29" rx="4"/>
+      <rect x="41" y="10" width="8" height="38" rx="4"/>
+    </g>
+    <text x="129" y="86" fill="#f6f8ff" font-size="42" font-weight="700" letter-spacing="-1">atlas.</text>
+    <text x="57" y="180" fill="#f6f8ff" font-size="45" font-weight="700" letter-spacing="-1">Your team's</text>
+    <text x="57" y="237" fill="#a4b5ff" font-size="45" font-weight="700" letter-spacing="-1">engineering memory.</text>
+    <text x="59" y="285" fill="#bdc9dd" font-size="19">Connect people, code, decisions, and the evidence behind them.</text>
+    <rect x="57" y="331" width="187" height="36" rx="18" fill="#223555"/>
+    <circle cx="77" cy="349" r="4" fill="#60d0b1"/>
+    <text x="90" y="354" fill="#dce5ff" font-size="14" font-weight="700">Built on FalkorDB</text>
+    <text x="263" y="354" fill="#aab9d2" font-size="14">Shared context. Considered action.</text>
+    <g stroke="#5369a1" stroke-width="1.5" fill="none" opacity=".7">
+      <path d="M940 97 1100 116 1162 234 1060 331 901 284 940 97"/>
+      <path d="M940 97 1018 217 1100 116M901 284 1018 217 1060 331M1018 217 1162 234"/>
+    </g>
+    <circle cx="1018" cy="217" r="27" fill="#2c4271" stroke="#8199f3" stroke-width="1.5"/>
+    <circle cx="1018" cy="217" r="8" fill="#a3b4ff"/>
+    <g fill="#71d2bd">
+      <circle cx="940" cy="97" r="7"/>
+      <circle cx="1162" cy="234" r="7"/>
+      <circle cx="901" cy="284" r="7"/>
+    </g>
+    <g fill="#8fa6ff">
+      <circle cx="1100" cy="116" r="7"/>
+      <circle cx="1060" cy="331" r="7"/>
+    </g>
+    <g fill="#d0d9eb" font-size="14">
+      <text x="915" y="76">People</text>
+      <text x="1087" y="95">Code</text>
+      <text x="1160" y="264">Evidence</text>
+      <text x="1026" y="360">Decisions</text>
+      <text x="845" y="314">Changes</text>
+    </g>
+  </g>
+</svg>
