@@ -601,6 +601,76 @@ async def test_validation_binds_results_to_exact_patch(identity, monkeypatch):
 
 
 @pytest.mark.asyncio
+@pytest.mark.parametrize("ci_status", ["failed", "pending", "not_started"])
+async def test_unverified_publication_requires_explicit_ack_and_preserves_failed_checks(
+    identity, monkeypatch, ci_status
+):
+    change = state(identity)
+    change["ci"] = {"head_sha": "c" * 40}
+    change["validation"] = {
+        "kind": "github_ci",
+        "status": ci_status,
+        "patch_hash": change["patch_hash"],
+        "head_sha": "c" * 40,
+        "destination": "me/repo",
+        "run_url": "https://github.com/me/repo/actions/runs/1",
+    }
+    change = changes.save(identity, change, change["revision"])
+    calls = []
+
+    async def authorized(user, method, path, payload=None, params=None):
+        calls.append((method, path, payload))
+        if path == "repos/me/repo":
+            return {"private": False, "parent": {"full_name": "owner/repo"}}
+        if method == "GET" and path.endswith("/pulls"):
+            return []
+        assert method == "POST" and path == "repos/owner/repo/pulls"
+        assert payload["draft"] is True
+        assert "Unverified draft" in payload["body"] and ci_status in payload["body"]
+        assert "concluded successfully" not in payload["body"]
+        return {"number": 8, "html_url": "https://github.com/owner/repo/pull/8"}
+
+    async def push(*args):
+        return "c" * 40
+
+    monkeypatch.setattr(github, "authorized", authorized)
+    monkeypatch.setattr(changes, "push_review_branch", push)
+    with pytest.raises(ValueError, match="passing checks"):
+        await changes.publish(identity, change["id"], change["revision"], "me/repo")
+    assert calls == []
+    published = await changes.publish(identity, change["id"], change["revision"], "me/repo", True)
+    assert published["publication"]["unverified"] is True
+    assert published["validation"]["status"] == ci_status
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "field,value", [("patch_hash", "stale"), ("head_sha", "other"), ("destination", "other/fork")]
+)
+async def test_unverified_draft_cannot_bypass_exact_patch_head_or_destination(
+    identity, monkeypatch, field, value
+):
+    change = state(identity)
+    change["ci"] = {"head_sha": "c" * 40}
+    change["validation"] = {
+        "kind": "github_ci",
+        "status": "failed",
+        "patch_hash": change["patch_hash"],
+        "head_sha": "c" * 40,
+        "destination": "me/repo",
+        field: value,
+    }
+    change = changes.save(identity, change, change["revision"])
+
+    async def forbidden(*args, **kwargs):
+        raise AssertionError("Unverified approval must not bypass source validation")
+
+    monkeypatch.setattr(github, "authorized", forbidden)
+    with pytest.raises(ValueError):
+        await changes.publish(identity, change["id"], change["revision"], "me/repo", True)
+
+
+@pytest.mark.asyncio
 async def test_publication_requires_current_validation_and_uses_draft_pr(identity, monkeypatch):
     change = state(identity)
     with pytest.raises(ValueError, match="passing checks"):

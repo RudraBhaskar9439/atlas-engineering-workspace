@@ -505,7 +505,7 @@ async def create_fork(user, run_id):
     return {"repository": fork["full_name"], "url": fork["html_url"], "pending": True}
 
 
-async def publish(user, run_id, expected, destination):
+async def publish(user, run_id, expected, destination, allow_unverified_draft=False):
     async with LOCK:
         state = get(user, run_id, expected)
         if state.get("is_demo"):
@@ -513,9 +513,21 @@ async def publish(user, run_id, expected, destination):
         if state.get("publication"):
             return state
         validation = state.get("validation") or {}
-        if validation.get("status") != "passed" or validation.get("patch_hash") != state.get("patch_hash"):
+        checks_passed = validation.get("status") == "passed" and validation.get("patch_hash") == state.get(
+            "patch_hash"
+        )
+        current_ci = (
+            validation.get("kind") == "github_ci"
+            and validation.get("status") in {"failed", "pending", "not_started"}
+            and validation.get("patch_hash") == state.get("patch_hash")
+            and validation.get("head_sha")
+            and validation.get("head_sha") == (state.get("ci") or {}).get("head_sha")
+        )
+        if not checks_passed and not (allow_unverified_draft and current_ci):
             raise ValueError("Run passing checks for the exact reviewed proposal before publishing.")
         destination = github.repository_name(destination)
+        if not checks_passed and destination != validation.get("destination"):
+            raise ValueError("Use the fork with recorded checks when approving an unverified draft.")
         target = await github.authorized(user, "GET", f"repos/{destination}")
         if target.get("private") is not False:
             raise ValueError("Choose a public destination repository.")
@@ -564,8 +576,15 @@ async def publish(user, run_id, expected, destination):
                 else f"`{validation['mode']} {validation['test_path']}` passed in an isolated, network-disabled container. "
                 f"Baseline failed before the proposed fix: {validation.get('regression_verified', False)}."
             )
+            if not checks_passed:
+                check_description = (
+                    f"**Unverified draft: native checks are {validation['status']}.** "
+                    f"Recorded head: `{validation['head_sha']}`. Latest run: {validation.get('run_url')}. "
+                    "The author explicitly approved draft publication with these results. "
+                    "This change needs passing checks and maintainer review before merging."
+                )
             body = (
-                f"{state['summary']}\n\nAddresses {state['issue']['url']}.\n\n"
+                f"{state['summary']}\n\nCloses {state['issue']['url']}\n\n"
                 f"Base commit: `{state['base_sha']}`\nEvidence: `{state['evidence']['source_id']}@{state['evidence']['revision']}`\n\n"
                 f"Validation: {check_description}\n\n"
                 "Prepared with AI assistance in Atlas and explicitly reviewed for draft publication.\n\n"
@@ -590,6 +609,7 @@ async def publish(user, run_id, expected, destination):
                 "branch": branch,
                 "destination": destination,
             }
+        publication["unverified"] = not checks_passed
         state.update(status="published", publication=publication)
         return save(user, state, expected)
 

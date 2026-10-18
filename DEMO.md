@@ -1,46 +1,96 @@
-# Atlas demonstration
+# Atlas: company-brain recording guide
 
-Open http://localhost:8001 and choose **Explore demo workspace**. The fictional Orbit company supplies clearly labeled sample evidence. Paid investigations use Claude or Gemini; Settings shows the shared spending reservation balance.
+Lead with the company brain: **who did what, who owns it, and which decision needs attention when evidence changes.** Keep the graph, source evidence, and model continuity at the center of the video.
 
-## Fast recording route
+## Ready-to-use recording setup
 
-Refresh Atlas, open **Changes**, then click **Start guided example**. Each walkthrough starts with a fresh, clearly labeled sample. Previous work remains in **Workspace history**.
+- Atlas: http://localhost:8001/ — use your current owner account.
+- Public sample repository: https://github.com/RudraBhaskar9439/atlas-orbit-demo
+- Public sample issue: https://github.com/RudraBhaskar9439/atlas-orbit-demo/issues/1
+- Team context: https://github.com/RudraBhaskar9439/atlas-orbit-demo/blob/main/COMPANY_CONTEXT.md
+- Importable records: https://github.com/RudraBhaskar9439/atlas-orbit-demo/blob/main/company-records.json
 
-1. Show the prepared billing fix in **Review changes**. Explain that this is a guided example, not live AI generation.
-2. Choose **Continue to checks**, then **Run checks**. The baseline and proposal run in real offline containers.
-3. Show **Checks passed** and expand **View test logs**: the baseline fails and the proposal passes.
-4. Choose **Review publication**, then **Download reviewed patch**. The sample cannot open an external PR.
-5. Show the Knowledge graph and an existing investigation checkpoint. Demonstrate model continuity with Claude/Gemini separately from the local sample.
+The recording dataset is labeled **recording sample** in Atlas, with source IDs starting `OD-`. Those new records were added without overwriting existing source records. The people, team assignments, and auth review are fictional. Real GitHub commits, issue metadata, model calls, and isolated tests remain real.
 
-Suggested narration: “Atlas connects issues, source evidence, and AI context. Here is a guided change with real test execution: the baseline reproduces the bug, and the reviewed proposal passes. The same workflow supports public repositories through GitHub Actions.”
+The repository's initial five tests pass on GitHub. Its deliberately uncovered half-cent billing case is a sample issue for the optional code scene. The same issue has been investigated in Atlas with automatic file selection and a real baseline/fix test run; no draft PR was published automatically.
 
-For a real native repository, choose **Run checks in my fork** after approving the proposal. This creates a draft validation PR inside a public fork owned by the connected account, so PR-triggered workflows can start. Upstream publication is a separate action after matching checks pass. This new PR-creation path is covered by deterministic tests; the agent has not opened a live validation PR.
+## Opening sentence
 
-## Suggested recording sequence
+“Atlas gives an engineering team a shared memory of who changed what, who owns the affected service, and what needs attention next—with evidence that stays available when the AI model changes.”
 
-1. **Overview.** Explain the core problem: engineering context is split across issues, code, decisions, and AI sessions. Atlas connects that context and carries reviewed work forward.
-2. **Issues.** Browse FalkorDB/FalkorDB, select a real issue, read its discussion, and save its evidence. Open the source inspector to show the issue's revision and provenance. Browsing and saving use no AI credits.
-3. **Investigations.** Ask Claude about a saved issue or the Orbit authentication change. Open a source chip to show the exact cited revision. Switch the same investigation to Gemini; the checkpoint and evidence references continue across the handoff.
-4. **Changes.** Open a change workspace from an issue. Explain the pinned commit, keep Automatic file selection enabled, and generate a proposal without choosing files. Show the actual files Atlas selected, then review the diff and notes. Show the four steps: Context, Review changes, Run checks, Publish.
-5. **Real checks, safe sample.** Use **Try a sample change** if the live repository needs a native build or credentials. The annual-billing example runs real isolated Python tests: baseline fails the half-cent regression and the corrected proposal passes. Clearly identify this as synthetic; it cannot publish externally. The retained live Gemini sample also demonstrates that a proposed test can be wrong and need manual correction.
-6. **Native repository checks.** For FalkorDB's native engine, select GitHub CI in a real change workspace. Explain the approved branch, existing workflow, and exact commit binding. Do not claim Python Code-Graph understands the C engine or that mocked CI results are a live build.
-7. **Publish.** Show the review/approval page. For a prepared, appropriate real change with working GitHub access and successful checks, the explicit final action creates a draft PR. Otherwise explain the implemented flow and display its verification status honestly. Do not create a placeholder upstream PR for the recording.
-8. **Knowledge.** Show graph search, layouts, labels, fit view, fullscreen, record inspection, and the Sources/Decisions/People tabs. In Decisions, introduce the synthetic auth regression: the dependent launch decision needs review while unrelated billing evidence remains separate.
-9. **Memory and access.** Reopen a saved investigation; show current versus historical source evidence. Exact checkpoints persist independently of Graphiti extraction. The read-only demo cannot access owner conversations or restricted audit evidence. Restore the owner demo after the access demonstration.
+## Suggested 3–4 minute story
+
+### 0:00–0:20: start with one concrete company question
+
+Open the investigation area and ask:
+
+> In the Orbit recording dataset, who authored the authentication change, who reviewed it, who owns authentication, and what is Noah assigned to do next? Use OD-TEAM, OD-AUTH-REVIEW, and OD-ASSIGNMENT as evidence. Cite source IDs and revisions. These are fictional sample team records, separate from real GitHub contributor metadata.
+
+The sample records identify Noah as the author, Maya as reviewer and auth owner, and Noah's next assignment as replay-test coverage. Open a citation so viewers see the actual supporting record and revision.
+
+### 0:20–1:15: make the company relationships visible
+
+In **Knowledge**, show **People** and the graph. Use the entries labeled recording sample. Trace:
+
+- Noah → authored auth change → modifies authentication.
+- Maya → owns authentication and reviews the auth record.
+- Noah → assigned to replay-test coverage.
+- Zara → owns the launch decision.
+- Leo → owns billing and the separate billing decision.
+
+Explain that assignment is recorded evidence, not inferred live employee activity. Show one ownership path and its source; keep navigation deliberate.
+
+### 1:15–2:15: show why the graph matters
+
+Open the source `OD-AUTH-VERIFY`. In its source editor, change the verification text to “Synthetic authentication verification failed: replay coverage found a regression.” Set the metadata result to `failed`, preserving the other fields:
+
+```json
+{"synthetic": true, "type": "verification", "result": "failed"}
+```
+
+Save the source, then open **Decisions**. **Approve Orbit recording launch** should move from current to needs review. **Enable annual billing · recording sample** should remain current because its condition uses separate billing evidence.
+
+Ask:
+
+> What changed in OD-AUTH-VERIFY, which decision now needs review, who owns that decision, and why is the billing decision unaffected? Cite the current revisions. A failed condition requests owner review; it does not automatically cancel a launch.
+
+This is the strongest scene: a change in evidence reaches the relevant decision and responsible person through explicit relationships.
+
+### 2:15–3:00: hand off the same investigation
+
+Keep the same investigation open. Switch from Claude to Gemini using the model selector, then ask:
+
+> Continue this investigation with the same recorded owners, constraints, and evidence references. What changed since the previous checkpoint, which earlier conclusions need revalidation, and what should Zara review next?
+
+Show the saved investigation and current source citations. Demonstrate durable task context and evidence revalidation; do not claim models preserve identical hidden reasoning or always give the same answer.
+
+### 3:00–4:00: optional action from company context
+
+Open **Changes** and choose the Orbit demo billing issue. The reviewed proposal and real isolated test result are prepared. Show:
+
+1. The relevant source and test file selected automatically.
+2. The small diff and test review.
+3. Baseline failure reproducing the half-cent case, then proposed tests passing.
+4. **Review publication**, destination `RudraBhaskar9439/atlas-orbit-demo`, and the explicit approval checkbox.
+
+A final user click can create a public draft PR in the demo repository. You own this repository, so no fork is needed. Do not create a PR in upstream FalkorDB just for the recording.
+
+If the recording limit is short, keep the company/evidence/model-handoff scenes and shorten this coding section.
 
 ## Claims to keep precise
 
-- `needs_review` requests a human decision; it is not automatic launch cancellation. Sampled model answers previously overstated it; the evaluation retains this limitation.
-- Google login identifies Atlas users. AI model usage uses separate provider API keys and billing, not consumer subscription tokens.
-- Code-Graph structural indexing is Python-only. Source-file review and configured GitHub CI support other languages with their own build requirements.
-- Local sandbox execution has no network or credentials. GitHub CI uses the destination repository's Actions environment and policies.
-- A passing selected test suite is evidence, not proof of complete correctness. Review the patch and generated tests.
-- If a proposal fails, keep the same workspace and retry generation or switch models. Successful automatic file selection is saved; creating another workspace is unnecessary. Structured output validation rejects incomplete or malformed patches.
-- A suggested CI destination is a repository name, not an automatically created fork. Choose **Create my fork** on the checks screen if it does not exist. The default check mode uses a validation PR in that fork; manual workflows are under Check configuration. Missing repositories and unavailable Actions workflows have separate recovery messages.
-- A pushed branch alone does not guarantee checks start. FalkorDB's Rust Push workflow only accepts main/version branches. The validation-PR mode addresses its Rust PR trigger. No passing native CI is claimed until an actual matching run completes.
-- **Review publication** opens a preview before checks pass. The preview explains any missing validation and links back to checks. Actual draft PR creation still requires successful checks for the current patch, a GitHub connection, a destination, and explicit approval. An unvalidated sample does not claim its checks are complete.
-- Runner selection follows the changed files. Native code and build configuration keep GitHub CI selected and disable the Python-only option with a visible explanation. Python proposals retain the isolated runner. The UI-triggered annual-billing sample was re-run successfully: baseline failed, proposal passed, and validation matched the current patch.
-- Draft PR publishing is implemented and covered by deterministic API tests. No arbitrary live PR, production deployment, video, or contest submission has been performed.
-- Google sign-in completion was confirmed by the user. GPT live inference remains deferred; demonstrate Claude and Gemini.
+- Team ownership, assignments, and review history are labeled fictional records; actual GitHub author metadata remains real.
+- The company graph uses FalkorDB relationships, source revisions, and deterministic decision conditions. Model explanations do not authoritatively cancel a launch.
+- Recorded assignments show what the team records say someone is working on; Atlas does not monitor a person's screen or infer private activity.
+- Model continuity uses saved investigation state, evidence references, and memory. Provider API keys and billing are separate from consumer ChatGPT/Claude/Gemini subscriptions.
+- Local Python checks execute in isolated containers with no network, credentials, or Docker socket. Passing a selected suite is evidence, not proof of complete correctness.
+- A reviewed, exact-patch passing result enables ordinary draft publication. For native GitHub checks that fail or remain pending, a user can explicitly approve an **unverified draft** tied to the same recorded patch, head, and fork. The PR discloses that status; Atlas never merges it.
+- The older FalkorDB fork run failed while pushing images to the upstream organization's registry. Do not describe that run as passing. Use the small Python repository for the recording.
 
-Screenshots and current results are under `outputs/`. Review the evaluation before quoting any test count or live external action in a recording.
+## Preparing another take
+
+Restore `OD-AUTH-VERIFY` to a passed result and matching verification text before another impact demonstration. Saving creates another source revision and preserves history.
+
+For Atlas's original built-in Orbit dataset, **Knowledge → Decisions → Fail sample check** changes the original authentication verification. Those controls do not target the separate `OD-` recording records.
+
+The guided billing sample under **Changes → Start guided example** is another offline fallback. It is clearly labeled synthetic, runs real tests, and downloads a patch without publishing a PR.

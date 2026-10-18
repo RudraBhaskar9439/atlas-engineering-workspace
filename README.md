@@ -165,7 +165,7 @@ Document extraction and temporal memory use the Gemini connection with `gemini-2
 
 ## Verified build — October 18, 2026
 
-The local build passes 109 backend tests against FalkorDB, two citation tests, backend linting, frontend compilation, locked dependency validation, and Docker image builds. Real isolated test containers verify baseline/fix behavior, non-root execution, credential isolation, disabled network, and read-only files. Application and database restart recovery were exercised. Live checks used Claude and Gemini, Code-Graph, GraphRAG SDK, and Graphiti; see [the actual evaluation results](outputs/atlas-evaluation.json).
+The local build passes 115 backend tests against FalkorDB, two citation tests and four publication-readiness tests, backend linting, frontend compilation, locked dependency validation, and Docker image builds. Real isolated test containers verify baseline/fix behavior, non-root execution, credential isolation, disabled network, and read-only files. Application and database restart recovery were exercised. Live checks used Claude and Gemini, Code-Graph, GraphRAG SDK, and Graphiti; see [the actual evaluation results](outputs/atlas-evaluation.json).
 
 Claude and Gemini are the active verified providers. The OpenAI credential supplied during development was rejected with `401 invalid_api_key`; the user chose to defer GPT and continue with Claude and Gemini. After the user updated the OAuth configuration on October 18, 2026, a fresh sign-in request reached Google's account chooser. Google accepts `http://localhost:8001/auth/google/callback`; the earlier `redirect_uri_mismatch` is resolved. The user subsequently confirmed completing sign-in and returning to Atlas. This is recorded as user-verified; the agent's separate browser session still shows the synthetic demo account and does not independently verify the Google identity. The user exercised fork creation and a review-branch push through Atlas. Read-only verification found no matching native CI run or upstream PR. Public deployment, contest submission, and demo recording remain outstanding.
 
@@ -184,3 +184,9 @@ The interface clears account-specific caches during sign-out and ignores respons
 See [the patch evaluation](outputs/atlas-change-evaluation.json) and [isolated-runner checks](outputs/atlas-sandbox-evaluation.json) for the new change workflow. See [DEMO.md](DEMO.md) for a presentation walkthrough and [SUBMISSION.md](SUBMISSION.md) for the local submission checklist. Source packaging excludes credentials, local data, installed dependencies, and caches.
 
 Graphiti receives the same private user namespace as both its driver database and episode/search group ID. This is required because its FalkorDB driver selects graphs by group ID. The original two synthetic demo episodes were ownership-checked and copied into the private graph; the legacy demo graph is retained for recovery and is outside current API retrieval.
+
+## Company-brain recording fixture
+
+The labeled [Orbit demo repository](https://github.com/RudraBhaskar9439/atlas-orbit-demo) includes fictional team ownership and review records, an Atlas-compatible record import, and a real reproducible Python issue. Use [the company-brain recording guide](DEMO.md) to demonstrate people, evidence, decision impact, and cross-model continuity.
+
+Draft publication normally uses passing exact-patch checks. An explicit user approval can instead publish an unverified draft when current native GitHub checks failed, are pending, or have not started. That path still binds the recorded patch, branch head, and destination, discloses the results in the PR, and never merges changes.

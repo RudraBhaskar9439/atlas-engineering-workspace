@@ -1,0 +1,14 @@
+{
+  "native": {
+    "checksPassed": false,
+    "unverified": true,
+    "canPublish": true
+  },
+  "native_status": "failed",
+  "orbit": {
+    "checksPassed": true,
+    "unverified": false,
+    "canPublish": true
+  },
+  "upstream_pr_created": false
+}

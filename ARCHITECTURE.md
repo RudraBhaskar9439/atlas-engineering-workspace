@@ -110,7 +110,7 @@ Python validation builds two bounded source archives: the original implementatio
 
 For other languages or custom builds, Atlas can push the reviewed branch to an approved public source repository or fork and dispatch an existing GitHub Actions workflow. CI results must match the recorded head SHA, branch, and selected workflow. Selected latest runs must all succeed. GitHub CI runs under the repository's own Actions permissions and environment; it is separate from the local offline sandbox.
 
-Publication requires explicit approval bound to the proposal hash, passing checks for that hash, unchanged issue evidence, and the original upstream commit. Atlas verifies remote changed filenames and Git blob hashes against reviewed content before a draft PR. Branch names derive from the run and patch. A persisted publication-start marker locks edits while an external outcome is uncertain; retry recovers the same branch/PR. No default-branch push or automatic merge is supported. Fine-grained token scope and upstream contribution limitations follow GitHub's current policy.
+Publication requires explicit approval bound to the proposal hash, unchanged issue evidence, and the recorded base commit. Verified publication uses passing checks for that hash; current native GitHub results can instead be explicitly approved as an unverified draft. Atlas verifies remote changed filenames and Git blob hashes against reviewed content before a draft PR. Branch names derive from the run and patch. A persisted publication-start marker locks edits while an external outcome is uncertain; retry recovers the same branch/PR. No default-branch push or automatic merge is supported. Fine-grained token scope and upstream contribution limitations follow GitHub's current policy.
 
 Checks prove only the selected tests or workflows passed. Model-generated tests can be wrong; baseline failure alone is not proof of a meaningful regression. The UI exposes both logs and permits manual review.
 
@@ -139,3 +139,7 @@ Patch generation requests up to 12,000 output tokens, bounded by the provider ca
 ### Linked-issue validation policy
 
 When a fork enables the `pr-linked-issue` workflow, Atlas creates or reuses a tracking issue in that same owned fork and links its draft validation PR with a closing keyword. Issues are enabled in the fork if needed. Tracker lookup is paginated and retries recover an issue created before a lost response. Existing PR descriptions are preserved when adding the link. Native build and test failures remain blocking; no upstream issue is closed or upstream PR opened by this step.
+
+### Explicitly unverified drafts
+
+A failed or pending native CI result no longer creates a dead end in draft publication. The publication screen refreshes native results, identifies the exact blocker, and offers explicitly labeled unverified draft approval. The API defaults that approval to false and accepts it only for current GitHub CI evidence tied to the same patch, head, and destination. The branch is still verified against reviewed files. Draft descriptions disclose the recorded status and link the original issue with a closing keyword. No check is changed to passed and Atlas never merges.

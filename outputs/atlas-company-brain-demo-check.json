@@ -1,0 +1,24 @@
+{
+  "verified_at": "2026-10-18T15:33:46.400043+00:00",
+  "synthetic_records": true,
+  "entities": 15,
+  "sources": 6,
+  "relationships": 23,
+  "structured_import": "passed",
+  "authorship_path": "passed",
+  "launch_before": "current",
+  "launch_after": "needs_review",
+  "unrelated_billing_after": "current",
+  "real_falkordb": true,
+  "paid_model_calls": 0,
+  "demo_repository": "https://github.com/RudraBhaskar9439/atlas-orbit-demo",
+  "test_user_workspace_modified": false,
+  "recording_setup": {
+    "new_labeled_records_loaded": true,
+    "existing_sources_overwritten": false,
+    "initial_decision_states": {
+      "od-launch": "current",
+      "od-enable-billing": "current"
+    }
+  }
+}

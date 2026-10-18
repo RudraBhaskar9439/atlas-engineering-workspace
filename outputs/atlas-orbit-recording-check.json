@@ -1,0 +1,24 @@
+{
+  "verified_at": "2026-10-18T15:41:48.765126+00:00",
+  "repository": "https://github.com/RudraBhaskar9439/atlas-orbit-demo",
+  "issue": "https://github.com/RudraBhaskar9439/atlas-orbit-demo/issues/1",
+  "synthetic_fixture": true,
+  "team_records_loaded": true,
+  "existing_source_records_overwritten": false,
+  "automatic_context": "automatic",
+  "selected_paths": [
+    "billing.py",
+    "tests/test_billing.py"
+  ],
+  "baseline_exit_code": 1,
+  "proposed_exit_code": 0,
+  "regression_verified": true,
+  "matching_patch_hash": true,
+  "draft_pr_created": false,
+  "paid_model_calls": 2,
+  "api_budget": {
+    "cap_inr": 2000.0,
+    "reserved_inr": 881.82,
+    "remaining_inr": 1118.18
+  }
+}

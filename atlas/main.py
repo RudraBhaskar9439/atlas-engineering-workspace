@@ -673,6 +673,7 @@ class ChangePublication(BaseModel):
     expected_revision: int = Field(ge=1)
     destination: str = Field(min_length=3, max_length=200)
     approved_patch: str = Field(min_length=64, max_length=64)
+    allow_unverified_draft: bool = Field(default=False, strict=True)
 
 
 class ChangeCI(ChangePublication):
@@ -781,7 +782,9 @@ async def publish_change(run_id: str, body: ChangePublication, identity=Depends(
     if body.approved_patch != state.get("patch_hash"):
         raise ValueError("Review and approve the current patch before publishing.")
     with github.read_credentials(identity):
-        return await changes.publish(identity, run_id, body.expected_revision, body.destination)
+        return await changes.publish(
+            identity, run_id, body.expected_revision, body.destination, body.allow_unverified_draft
+        )
 
 
 @app.get("/api/github/issues/{number}")

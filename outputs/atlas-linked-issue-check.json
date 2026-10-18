@@ -35,5 +35,10 @@
     "saved_proposal_preserved": true,
     "isolated_runner": "passed",
     "backend_tests_passed": 109
+  },
+  "latest_native_result": {
+    "status": "failed",
+    "reason": "Fork CI could not push images into the upstream FalkorDB GHCR namespace.",
+    "checks_treated_as_passed": false
   }
 }
