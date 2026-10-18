@@ -142,7 +142,7 @@ FalkorDB Browser is available at [localhost:3001](http://localhost:3001). The de
 1. **Explore Knowledge.** Open the graph, then **People & ownership** to inspect the sample team's relationships.
 2. **Start an investigation.** Ask: “Who owns authentication, who authored the refresh-token change, and what evidence supports that?”
 3. **Switch models.** Continue the saved investigation with another configured provider.
-4. **Inspect a decision.** Follow its supporting conditions and source records. See the [recording guide](DEMO.md) for the sample evidence-change scenario.
+4. **Inspect a decision.** Follow its supporting conditions and source records. See the [sample scenario](docs/TECHNICAL_REFERENCE.md#the-demonstration) for the evidence-change walkthrough.
 5. **Open a public issue.** Use **Issues → Open change workspace**, review the proposed diff, run the appropriate checks, and review publication before creating a draft.
 
 For a controlled code example, use the explicitly labeled [Orbit demo repository](https://github.com/RudraBhaskar9439/atlas-orbit-demo). For the real repository shown in the video, use [Boltons](https://github.com/mahmoud/boltons).
@@ -173,8 +173,6 @@ The [technical reference](docs/TECHNICAL_REFERENCE.md#tests-and-api-budget) cove
 | --- | --- |
 | [Architecture](ARCHITECTURE.md) | System design, graph schema, permissions, and data flow. |
 | [Technical reference](docs/TECHNICAL_REFERENCE.md) | Detailed setup, imports, queries, integrations, validation, and implementation limits. |
-| [Demo guide](DEMO.md) | Sample company records, evidence scenarios, and recording instructions. |
-| [Submission notes](SUBMISSION.md) | Hackathon positioning and project summary. |
 | [Third-party components](THIRD_PARTY.md) | Dependencies, upstream licenses, and AI-assistance attribution. |
 
 ---

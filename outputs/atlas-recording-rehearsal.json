@@ -47,5 +47,5 @@
     "outputs/atlas-recording-checks.png",
     "outputs/atlas-recording-complete.png"
   ],
-  "recording_guide": "DEMO.md"
+  "recording_guide": "README.md#take-your-first-tour"
 }

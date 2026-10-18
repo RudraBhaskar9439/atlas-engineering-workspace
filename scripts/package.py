@@ -16,17 +16,16 @@ FILES = [
     "README.md",
     "ARCHITECTURE.md",
     "THIRD_PARTY.md",
-    "DEMO.md",
-    "SUBMISSION.md",
     "frontend/package.json",
     "frontend/package-lock.json",
     "frontend/index.html",
     "frontend/tsconfig.json",
     "frontend/vite.config.ts",
 ]
-DIRECTORIES = ["atlas", "demo", "frontend/src", "frontend/public", "frontend/tests", "scripts", "tests", "outputs"]
-EXTENSIONS = {".py", ".sh", ".ts", ".tsx", ".js", ".css", ".md", ".json", ".txt", ".jpg", ".png", ".svg"}
-EXCLUDED = {".env", ".git", ".atlas-data", ".tools", ".venv", "node_modules", "__pycache__", "dist"}
+DIRECTORIES = ["atlas", "demo", "docs", "frontend/src", "frontend/public", "frontend/tests", "scripts", "tests", "outputs"]
+EXTENSIONS = {".py", ".sh", ".ts", ".tsx", ".js", ".css", ".md", ".json", ".txt", ".jpg", ".png", ".svg", ".mp4"}
+# Local recording work files contain private inputs and are not release sources.
+EXCLUDED = {".env", ".git", ".atlas-data", ".tools", ".venv", "node_modules", "__pycache__", "dist", "atlas-demo-video"}
 
 
 def package():
@@ -48,7 +47,10 @@ def package():
     with ZipFile(destination) as archive:
         names = archive.namelist()
         assert ".env" not in names and all(not EXCLUDED.intersection(Path(n).parts) for n in names)
-        assert {"README.md", "atlas/main.py", "frontend/src/App.tsx", "uv.lock"}.issubset(names)
+        assert {
+            "README.md", "atlas/main.py", "frontend/src/App.tsx", "uv.lock",
+            "docs/TECHNICAL_REFERENCE.md", "docs/assets/atlas-demo.mp4",
+        }.issubset(names)
         assert archive.testzip() is None
     print(f"Source package verified: {len(names)} files, {destination.stat().st_size:,} bytes")
     return destination

@@ -185,12 +185,12 @@ The data phase includes an actual Code-Graph re-index after deleting a Python fi
 
 The interface clears account-specific caches during sign-out and ignores responses from the previous account. Historical citation links open the cited revision. The task sidebar shows authoritative recorded decision status separately from model recommendations.
 
-See [the patch evaluation](../outputs/atlas-change-evaluation.json) and [isolated-runner checks](../outputs/atlas-sandbox-evaluation.json) for the new change workflow. See [DEMO.md](../DEMO.md) for a presentation walkthrough and [SUBMISSION.md](../SUBMISSION.md) for the local submission checklist. Source packaging excludes credentials, local data, installed dependencies, and caches.
+See [the patch evaluation](../outputs/atlas-change-evaluation.json) and [isolated-runner checks](../outputs/atlas-sandbox-evaluation.json) for the new change workflow. The README provides the [product walkthrough](../README.md#see-it-in-action) and [local setup](../README.md#run-locally). Source packaging excludes credentials, local data, installed dependencies, and caches.
 
 Graphiti receives the same private user namespace as both its driver database and episode/search group ID. This is required because its FalkorDB driver selects graphs by group ID. The original two synthetic demo episodes were ownership-checked and copied into the private graph; the legacy demo graph is retained for recovery and is outside current API retrieval.
 
 ## Company-brain recording fixture
 
-The labeled [Orbit demo repository](https://github.com/RudraBhaskar9439/atlas-orbit-demo) includes fictional team ownership and review records, an Atlas-compatible record import, and a real reproducible Python issue. Use [the company-brain recording guide](../DEMO.md) to demonstrate people, evidence, decision impact, and cross-model continuity.
+The labeled [Orbit demo repository](https://github.com/RudraBhaskar9439/atlas-orbit-demo) includes fictional team ownership and review records, an Atlas-compatible record import, and a real reproducible Python issue. Use [the first tour](../README.md#take-your-first-tour) to explore people, evidence, decision impact, and cross-model continuity.
 
 Draft publication normally uses passing exact-patch checks. An explicit user approval can instead publish an unverified draft when current native GitHub checks failed, are pending, or have not started. That path still binds the recorded patch, branch head, and destination, discloses the results in the PR, and never merges changes.
