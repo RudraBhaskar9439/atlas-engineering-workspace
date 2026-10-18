@@ -1,7 +1,7 @@
 {
   "date": "2026-10-18",
   "automated_tests": {
-    "passed": 107,
+    "passed": 109,
     "failed": 0,
     "dependency_warnings": 3,
     "backend": "Real local FalkorDB; deterministic provider/GitHub writes stubbed",
@@ -68,8 +68,8 @@
   },
   "api_budget": {
     "cap_inr": 2000.0,
-    "reserved_inr": 681.72,
-    "remaining_inr": 1318.28
+    "reserved_inr": 868.8,
+    "remaining_inr": 1131.2
   },
   "budget_note": "Conservative reservations including failed attempts, not provider invoices.",
   "external_checks": {
@@ -179,7 +179,9 @@
     },
     "recording_rehearsal": "Fresh synthetic sample; real baseline exit 1, proposed exit 0, three tests passed, matching reviewed patch hash. See outputs/atlas-recording-rehearsal.json.",
     "native_ci_recording_flow": "Owned-fork validation PR, exact-head checks, timeout recovery, and pinned upstream base covered with mocked GitHub writes; no live validation PR or native Rust pass claimed.",
-    "patch_output_limit": "Provider-bounded 12000-token proposal, one truncation-only retry up to 16000, 120-second timeout for large structured responses. Live Claude exact-source proposal passed; saved workspace unchanged. See outputs/atlas-output-limit-check.json."
+    "patch_output_limit": "Provider-bounded 12000-token proposal, one truncation-only retry up to 16000, 120-second timeout for large structured responses. Live Claude exact-source proposal passed; saved workspace unchanged. See outputs/atlas-output-limit-check.json.",
+    "linked_issue_validation": "Live repair verified: fork tracker issue 2 linked to existing draft PR 1; PR linked issue workflow passed. Rust checks queued; reviewed head unchanged. See outputs/atlas-linked-issue-check.json.",
+    "docker_recovery": "Passed: updated Atlas HTTP 200, saved reviewed head/tracker preserved, and real isolated baseline/fix checks passed after daemon restart."
   },
   "provider_plan": {
     "active": [

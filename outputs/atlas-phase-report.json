@@ -167,7 +167,7 @@
       ]
     }
   },
-  "updated_at": "2026-10-18T14:53:30.710348+00:00",
+  "updated_at": "2026-10-18T15:15:28.795742+00:00",
   "status": "local_build_verified",
   "runtime_checks": {
     "application_and_database_restart": "passed; both exact task states and both private episode IDs preserved",
@@ -272,12 +272,12 @@
   },
   "api_budget": {
     "cap_inr": 2000.0,
-    "reserved_inr": 681.72,
-    "remaining_inr": 1318.28
+    "reserved_inr": 868.8,
+    "remaining_inr": 1131.2
   },
   "api_budget_note": "Conservative reservations, including failed calls; not a provider invoice.",
   "automated_tests": {
-    "passed": 107,
+    "passed": 109,
     "failed": 0,
     "dependency_warnings": 3,
     "backend": "Real local FalkorDB; deterministic provider/GitHub writes stubbed",
@@ -318,6 +318,22 @@
       "frontend_build": "passed",
       "docker_build": "passed",
       "paid_calls": 0
+    },
+    "docker_recovery": {
+      "verified_at": "2026-10-18T15:15:28.795953+00:00",
+      "original_failure": "Docker daemon stopped during the isolated-runner check.",
+      "rechecked_command": [
+        "uv",
+        "run",
+        "python",
+        "-m",
+        "scripts.sandbox_smoke"
+      ],
+      "passed": true,
+      "services": "Atlas, runner, and FalkorDB running; saved proposal and tracker preserved.",
+      "application_http_status": 200,
+      "backend_tests_passed": 109,
+      "frontend_checks_passed": 2
     }
   },
   "change_evaluation": "outputs/atlas-change-evaluation.json",

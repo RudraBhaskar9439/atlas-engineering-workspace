@@ -1,0 +1,39 @@
+{
+  "verified_at": "2026-10-18T15:09:24.891274+00:00",
+  "validation_pr": {
+    "number": 1,
+    "url": "https://github.com/RudraBhaskar9439/FalkorDB/pull/1"
+  },
+  "validation_issue": {
+    "number": 2,
+    "url": "https://github.com/RudraBhaskar9439/FalkorDB/issues/2"
+  },
+  "exact_patch_unchanged": true,
+  "head_sha": "d2a55230a8a1c349800e96abeb1a8fe6a892d1ec",
+  "ci_status": "pending",
+  "runs": [
+    {
+      "id": 39139119919,
+      "name": "PR linked issue",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/RudraBhaskar9439/FalkorDB/actions/runs/39139119919"
+    },
+    {
+      "id": 39138613934,
+      "name": "Rust PR",
+      "status": "queued",
+      "conclusion": null,
+      "html_url": "https://github.com/RudraBhaskar9439/FalkorDB/actions/runs/39138613934"
+    }
+  ],
+  "upstream_writes": 0,
+  "native_tests_passed": false,
+  "linked_issue_check": "passed",
+  "local_recovery": {
+    "application_http_status": 200,
+    "saved_proposal_preserved": true,
+    "isolated_runner": "passed",
+    "backend_tests_passed": 109
+  }
+}

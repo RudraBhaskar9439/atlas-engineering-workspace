@@ -135,3 +135,7 @@ A proposal remains pinned to its recorded base and tested head when upstream adv
 ### Patch response limits
 
 Patch generation requests up to 12,000 output tokens, bounded by the provider catalogue limit, and retries once with up to 16,000 only when the provider reports truncated structured output. Each attempt reserves API budget separately. Larger structured requests allow 120 seconds. Partial or malformed proposals are never saved; the prior reviewed proposal remains intact when generation fails. Chat and automatic file discovery keep their existing limits.
+
+### Linked-issue validation policy
+
+When a fork enables the `pr-linked-issue` workflow, Atlas creates or reuses a tracking issue in that same owned fork and links its draft validation PR with a closing keyword. Issues are enabled in the fork if needed. Tracker lookup is paginated and retries recover an issue created before a lost response. Existing PR descriptions are preserved when adding the link. Native build and test failures remain blocking; no upstream issue is closed or upstream PR opened by this step.

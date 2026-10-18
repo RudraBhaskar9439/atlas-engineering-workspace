@@ -863,6 +863,8 @@ async def test_validation_pr_stays_in_owned_fork_and_recovers_after_timeout(iden
                 "parent": {"full_name": "owner/repo"},
                 "default_branch": "main",
             }
+        if path == "repos/me/repo/actions/workflows":
+            return {"workflows": []}
         assert path == "repos/me/repo/pulls"
         if method == "GET":
             assert params["head"].startswith("me:atlas/") and params["base"] == "main"
@@ -887,6 +889,86 @@ async def test_validation_pr_stays_in_owned_fork_and_recovers_after_timeout(iden
     assert repeated["ci"]["validation_pr"]["number"] == 7
     assert sum(method == "POST" for method, _, _ in calls) == 1
     assert not any("repos/owner/repo/pulls" == path for _, path, _ in calls)
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("timeout", [False, True])
+async def test_validation_issue_repairs_existing_pr_without_duplicate_trackers(
+    identity, monkeypatch, timeout
+):
+    change = state(identity)
+    change["ci"] = {"destination": "me/repo", "head_sha": "c" * 40, "validation_pr": {"number": 7}}
+    change = changes.save(identity, change, change["revision"])
+    calls, issues = [], []
+    pull = {
+        "number": 7,
+        "html_url": "https://github.com/me/repo/pull/7",
+        "state": "open",
+        "body": "Human review notes.",
+    }
+
+    async def push(*args):
+        return "c" * 40
+
+    async def authorized(user, method, path, payload=None, params=None):
+        calls.append((method, path, payload))
+        if path == "user":
+            return {"login": "me"}
+        if path == "repos/me/repo":
+            return {
+                "private": False,
+                "fork": True,
+                "has_issues": False,
+                "owner": {"login": "me"},
+                "parent": {"full_name": "owner/repo"},
+                "default_branch": "main",
+            }
+        if path == "repos/me/repo/actions/workflows":
+            return {"workflows": [{"state": "active", "path": ".github/workflows/pr-linked-issue.yml"}]}
+        if path == "repos/me/repo/issues":
+            if method == "GET":
+                return copy.deepcopy(issues)
+            assert "github.com/owner/repo" not in payload["body"]
+            issues.append(
+                {
+                    "number": 2,
+                    "html_url": "https://github.com/me/repo/issues/2",
+                    "state": "open",
+                    "body": payload["body"],
+                }
+            )
+            if timeout:
+                raise ValueError("GitHub request failed")
+            return copy.deepcopy(issues[0])
+        if path == "repos/me/repo/pulls":
+            assert method == "GET"
+            return [copy.deepcopy(pull)]
+        if path == "repos/me/repo/pulls/7":
+            assert method == "PATCH"
+            pull.update(payload)
+            return copy.deepcopy(pull)
+        raise AssertionError(path)
+
+    monkeypatch.setattr(changes, "push_review_branch", push)
+    monkeypatch.setattr(github, "authorized", authorized)
+    if timeout:
+        with pytest.raises(ValueError, match="request failed"):
+            await changes.start_ci(
+                identity, change["id"], change["revision"], "me/repo", trigger="pull_request"
+            )
+        change = changes.get(identity, change["id"])
+    result = await changes.start_ci(
+        identity, change["id"], change["revision"], "me/repo", trigger="pull_request"
+    )
+    again = await changes.start_ci(
+        identity, result["id"], result["revision"], "me/repo", trigger="pull_request"
+    )
+    assert again["ci"]["validation_issue"]["number"] == 2
+    assert again["ci"]["validation_pr"]["number"] == 7
+    assert pull["body"] == "Human review notes.\n\nCloses #2"
+    assert sum(method == "POST" and path.endswith("/issues") for method, path, _ in calls) == 1
+    assert sum(method == "PATCH" and path.endswith("/pulls/7") for method, path, _ in calls) == 1
+    assert all(path == "user" or path.startswith("repos/me/repo") for _, path, _ in calls)
 
 
 @pytest.mark.asyncio

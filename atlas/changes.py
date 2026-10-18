@@ -669,6 +669,50 @@ async def ci_workflows(user, destination):
     ]
 
 
+async def validation_issue(user, state, destination, target):
+    workflows = await github.authorized(user, "GET", f"repos/{destination}/actions/workflows")
+    if not any(
+        v.get("state") == "active"
+        and v.get("path", "").rsplit("/", 1)[-1] in {"pr-linked-issue.yml", "pr-linked-issue.yaml"}
+        for v in workflows.get("workflows", [])
+    ):
+        return None
+    if target.get("has_issues") is False:
+        await github.authorized(user, "PATCH", f"repos/{destination}", {"has_issues": True})
+    marker = f"<!-- atlas-validation:{state['repository']}#{state['issue']['number']} -->"
+    page = 1
+    while True:
+        issues = await github.authorized(
+            user,
+            "GET",
+            f"repos/{destination}/issues",
+            params={"state": "all", "per_page": 100, "page": page},
+        )
+        issue = next((v for v in issues if "pull_request" not in v and marker in (v.get("body") or "")), None)
+        if issue or len(issues) < 100:
+            break
+        page += 1
+    if not issue:
+        issue = await github.authorized(
+            user,
+            "POST",
+            f"repos/{destination}/issues",
+            {
+                "title": ("Atlas validation: " + state["issue"]["title"])[:200],
+                "body": (
+                    f"{marker}\n\nTracks validation inside this fork for an Atlas-reviewed proposal.\n\n"
+                    f"Source repository: `{state['repository']}`; upstream issue {state['issue']['number']}.\n\n"
+                    "Closing this tracker does not close the upstream issue. Native tests must still pass."
+                ),
+            },
+        )
+    elif issue.get("state") == "closed":
+        issue = await github.authorized(
+            user, "PATCH", f"repos/{destination}/issues/{issue['number']}", {"state": "open"}
+        )
+    return {"number": issue["number"], "url": issue["html_url"]}
+
+
 async def start_ci(user, run_id, expected, destination, workflow_id=None, trigger="push"):
     async with LOCK:
         state = get(user, run_id, expected)
@@ -699,14 +743,6 @@ async def start_ci(user, run_id, expected, destination, workflow_id=None, trigge
                 )
         branch = f"atlas/issue-{state['issue']['number']}-{state['id'][:8]}-{state['patch_hash'][:8]}"
         head_sha = await push_review_branch(user, state, destination, branch)
-        previous = state.get("ci") or {}
-        if (
-            trigger == "pull_request"
-            and previous.get("destination") == destination
-            and previous.get("head_sha") == head_sha
-            and previous.get("validation_pr")
-        ):
-            return state
         state.update(
             ci={
                 "destination": destination,
@@ -732,6 +768,11 @@ async def start_ci(user, run_id, expected, destination, workflow_id=None, trigge
                 raise ValueError(
                     "The validation PR is closed. Reopen it in your fork to continue its checks."
                 )
+            issue = await validation_issue(user, state, destination, target)
+            closing = f"Closes #{issue['number']}" if issue else ""
+            if issue:
+                state["ci"]["validation_issue"] = issue
+                state = save(user, state, state["revision"])
             pull = (
                 pulls[0]
                 if pulls
@@ -745,6 +786,7 @@ async def start_ci(user, run_id, expected, destination, workflow_id=None, trigge
                             "Run this fork's checks for an Atlas-reviewed proposal.\n\n"
                             f"Base commit: `{state['base_sha']}`\nPatch: `{state['patch_hash']}`\n\n"
                             "This validation PR stays inside this fork. Upstream publication is a separate action."
+                            + ("\n\n" + closing if closing else "")
                         ),
                         "head": branch,
                         "base": base,
@@ -752,6 +794,13 @@ async def start_ci(user, run_id, expected, destination, workflow_id=None, trigge
                     },
                 )
             )
+            if pulls and closing and closing not in (pull.get("body") or "").splitlines():
+                await github.authorized(
+                    user,
+                    "PATCH",
+                    f"repos/{destination}/pulls/{pull['number']}",
+                    {"body": (pull.get("body") or "").rstrip() + "\n\n" + closing},
+                )
             state["ci"]["validation_pr"] = {"number": pull["number"], "url": pull["html_url"]}
         elif workflow_id:
             await github.authorized(
