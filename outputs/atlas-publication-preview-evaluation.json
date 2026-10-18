@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "check": "Unvalidated real proposal can open Review publication",
+      "passed": true
+    },
+    {
+      "check": "Publication preview explains missing checks and disables draft PR creation",
+      "passed": true
+    },
+    {
+      "check": "Validated synthetic sample displays completion",
+      "passed": true
+    },
+    {
+      "check": "Unvalidated synthetic sample displays checks required instead of completion",
+      "passed": true
+    },
+    {
+      "check": "Synthetic sample restored with exact original files and validation",
+      "passed": true
+    }
+  ],
+  "backend_publication_guard": "Unchanged; full 99-test backend suite passed.",
+  "screenshot": "outputs/atlas-publication-preview.png",
+  "github_writes": 0,
+  "model_calls": 0
+}

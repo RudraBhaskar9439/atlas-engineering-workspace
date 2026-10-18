@@ -1,0 +1,325 @@
+{
+  "phases": {
+    "foundation": {
+      "status": "passed",
+      "checks": [
+        {
+          "command": [
+            "uv",
+            "run",
+            "pytest",
+            "-q",
+            "-k",
+            "csrf or encrypted or disconnect or google or public_import"
+          ],
+          "passed": true
+        }
+      ]
+    },
+    "data": {
+      "status": "passed",
+      "checks": [
+        {
+          "command": [
+            "uv",
+            "run",
+            "pytest",
+            "-q",
+            "-k",
+            "source or import or repository or code_graph or document"
+          ],
+          "passed": true
+        }
+      ]
+    },
+    "decisions": {
+      "status": "passed",
+      "checks": [
+        {
+          "command": [
+            "uv",
+            "run",
+            "pytest",
+            "-q",
+            "-k",
+            "dependency or changed_evidence or same_decision or decision_without"
+          ],
+          "passed": true
+        }
+      ]
+    },
+    "memory": {
+      "status": "passed",
+      "checks": [
+        {
+          "command": [
+            "uv",
+            "run",
+            "pytest",
+            "-q",
+            "-k",
+            "checkpoint or handoff or history or graphiti or gemini_chat or instruction or citation"
+          ],
+          "passed": true
+        }
+      ]
+    },
+    "interface": {
+      "status": "passed",
+      "checks": [
+        {
+          "command": [
+            "npm",
+            "--prefix",
+            "frontend",
+            "run",
+            "build"
+          ],
+          "passed": true
+        },
+        {
+          "command": [
+            "npm",
+            "--prefix",
+            "frontend",
+            "test"
+          ],
+          "passed": true
+        }
+      ]
+    },
+    "release": {
+      "status": "passed",
+      "checks": [
+        {
+          "command": [
+            "uv",
+            "run",
+            "pytest",
+            "-q"
+          ],
+          "passed": true
+        },
+        {
+          "command": [
+            "uv",
+            "run",
+            "ruff",
+            "check",
+            "atlas",
+            "tests",
+            "scripts"
+          ],
+          "passed": true
+        },
+        {
+          "command": [
+            "uv",
+            "lock",
+            "--check"
+          ],
+          "passed": true
+        },
+        {
+          "command": [
+            "bash",
+            "-n",
+            "scripts/setup.sh",
+            "scripts/start.sh"
+          ],
+          "passed": true
+        },
+        {
+          "command": [
+            "docker",
+            "compose",
+            "--profile",
+            "app",
+            "config",
+            "--quiet"
+          ],
+          "passed": true
+        },
+        {
+          "command": [
+            "docker",
+            "compose",
+            "--profile",
+            "app",
+            "--profile",
+            "tools",
+            "build",
+            "atlas",
+            "sandbox"
+          ],
+          "passed": true
+        },
+        {
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "-m",
+            "scripts.sandbox_smoke"
+          ],
+          "passed": true
+        }
+      ]
+    }
+  },
+  "updated_at": "2026-10-18T14:53:30.710348+00:00",
+  "status": "local_build_verified",
+  "runtime_checks": {
+    "application_and_database_restart": "passed; both exact task states and both private episode IDs preserved",
+    "docker_codegraph_index": "passed; five nodes and four edges",
+    "live_investigation": "passed; separate task created without advancing the earlier task",
+    "live_graphiti_episode": "passed; requested checkpoint completed",
+    "live_memory_recall": "passed; five facts displayed",
+    "historical_citation_ui": "passed; cited revision 3 opens separately from current revision 4",
+    "account_switch_ui": "passed; viewer has no owner tasks or recalled episode facts",
+    "private_memory_namespace": "passed; two ownership-verified episodes preserved in private graph; search verified with provider calls disabled",
+    "public_github_issues": "passed; unauthenticated public API browsing, issue #3371, two comments, source revision 1, and evidence inspector verified in the demo workspace; no model calls",
+    "isolated_python_checks": "passed in real Docker jobs: baseline failed regression, proposed passed; non-root user, no credentials/socket/network, read-only source/root",
+    "live_gemini_patch": "two failed model attempts retained; manual review corrected arithmetic and added exact regression; baseline 1 failed/3 passed, proposal 4 passed",
+    "reviewed_change_ui": "manual file editing, validation invalidation, baseline/proposed logs and sample publication denial verified",
+    "github_writes": "User exercised fork creation and a review-branch push through Atlas; branch verified read-only. No matching workflow or PR is recorded; this agent made no GitHub writes.",
+    "polished_interface": "verified Overview/Issues/Changes/Knowledge, manual proposal editing, checks, graph search/layouts/fit/expansion/Escape, canvas selection and record inspector",
+    "public_repository_context": {
+      "repository": "falkordb/falkordb",
+      "base_sha": "0f45a8685aa8d542f026b4f5f6bcaa0fbb43c1c9",
+      "listed_files": 957,
+      "source_files": 36,
+      "test_files": 393,
+      "bounded": false,
+      "github_writes": 0,
+      "empty_demo_context_refreshed": true
+    },
+    "restart_after_changes": "passed: two existing demo investigations, three change workspaces, two passing sample validations preserved",
+    "github_connection": {
+      "saved_connections": 1,
+      "read_only_checks": [
+        {
+          "connected": true,
+          "repository": "FalkorDB/FalkorDB",
+          "public": true,
+          "active_workflows": 30
+        }
+      ],
+      "github_writes": 0
+    },
+    "large_source_context": {
+      "status": "passed",
+      "file": "graph/src/graph/graphblas/tensor.rs",
+      "file_bytes": 110123,
+      "per_file_bytes": 160000,
+      "combined_bytes": 200000,
+      "proposal_context_chars": 260000,
+      "ordinary_chat_context_chars": 65000,
+      "ui": "preview loaded; Include in context selected one file and enabled Generate proposed fix",
+      "model_calls": 0,
+      "github_writes": 0,
+      "tests": "large read/edit roundtrip, UTF-8 byte limits, combined size cap, complete model payload, unchanged chat limit"
+    },
+    "automatic_file_selection": {
+      "status": "passed",
+      "details": "Live Gemini discovery selected tensor.rs and a related multi-edge test for issue #3246. First rejected attempt retained. Full automatic proposal flow, failure recovery, and path/budget validation tested deterministically. Browser default mode and manual override verified.",
+      "model_calls": 2,
+      "patch_generated_live": false,
+      "github_writes": 0,
+      "artifact": "outputs/atlas-automatic-context-evaluation.json"
+    },
+    "structured_patch_generation": {
+      "status": "passed_with_content_review_required",
+      "details": "Structured JSON validation and exact source edits verified with live Gemini on issue #3246. Claude truncation and a rejected Gemini source mismatch retained. Generated regression test needs correction and native checks; no GitHub writes.",
+      "evidence": "outputs/atlas-structured-patch-evaluation.json",
+      "original_workspace_restored": true,
+      "ui": "Verified review step, diff, and correction warning in the demo browser; proposal also saved to the original user workspace with revision checking.",
+      "screenshot": "outputs/atlas-structured-patch-review.png"
+    },
+    "github_destination_setup": {
+      "status": "passed",
+      "details": "Named destination returned 404 with the matching saved GitHub account and via public API/page. Metadata and Actions 404 responses now give recovery guidance; missing branch references retain LookupError for retry recovery. Create my fork is available at the CI step, confirmed in a demo session without credentials. Fork creation and CI push were not executed.",
+      "screenshot": "outputs/atlas-ci-fork-setup.png",
+      "paid_model_calls": 0,
+      "github_writes": 0
+    },
+    "ci_without_workflow": {
+      "status": "verified_not_started",
+      "details": "The user created a fork and pushed a review branch through Atlas. Read-only GitHub inspection found Actions enabled and no matching run. Rust Push accepts main/version branches; Rust PR accepts pull_request/merge_group. Atlas now records not_started, uses a warning panel, links Actions, and keeps publication blocked. A matching queued/running/successful run can recover the state.",
+      "evidence": "outputs/atlas-ci-trigger-evaluation.json",
+      "screenshot": "outputs/atlas-ci-not-started.png",
+      "agent_github_writes": 0,
+      "agent_model_calls": 0
+    },
+    "publication_preview": {
+      "status": "passed",
+      "details": "Review navigation is independent of validation. Missing or stale validation blocks creation; sample completion requires matching passed validation. Real and synthetic UI states verified, original sample restored.",
+      "evidence": "outputs/atlas-publication-preview-evaluation.json",
+      "screenshot": "outputs/atlas-publication-preview.png"
+    },
+    "runner_compatibility": {
+      "status": "passed",
+      "details": "Native proposals cannot select the Python runner and show upfront GitHub CI guidance. A Python sample was validated through the actual button and runner service: baseline exit 1, proposal exit 0, matching patch hash and fresh timestamp. Native validation remains unperformed.",
+      "evidence": "outputs/atlas-runner-compatibility-evaluation.json"
+    },
+    "recording_rehearsal": "Fresh synthetic sample; real baseline exit 1, proposed exit 0, three tests passed, matching reviewed patch hash. See outputs/atlas-recording-rehearsal.json.",
+    "native_ci_recording_flow": "Owned-fork validation PR, exact-head checks, timeout recovery, and pinned upstream base covered with mocked GitHub writes; no live validation PR or native Rust pass claimed.",
+    "patch_output_limit": "Provider-bounded 12000-token proposal, one truncation-only retry up to 16000, 120-second timeout for large structured responses. Live Claude exact-source proposal passed; saved workspace unchanged. See outputs/atlas-output-limit-check.json."
+  },
+  "external_hurdles": {
+    "public_delivery": "source publication, hosting, contest submission and video are later steps; no external delivery performed",
+    "github_writes": "not exercised live; requires a specific reviewed real fix"
+  },
+  "api_budget": {
+    "cap_inr": 2000.0,
+    "reserved_inr": 681.72,
+    "remaining_inr": 1318.28
+  },
+  "api_budget_note": "Conservative reservations, including failed calls; not a provider invoice.",
+  "automated_tests": {
+    "passed": 107,
+    "failed": 0,
+    "dependency_warnings": 3,
+    "backend": "Real local FalkorDB; deterministic provider/GitHub writes stubbed",
+    "frontend_citations_passed": 2
+  },
+  "source_package": "outputs/atlas-source.zip; secrets excluded and archive integrity verified",
+  "external_verification": {
+    "google_oauth": {
+      "status": "completed_user_verified",
+      "evidence": "Fresh browser request reached Google's account chooser after the configuration correction. The user confirmed completing sign-in and returning to Atlas. The agent's separate browser session remains in the synthetic demo workspace; Google identity was not independently verified there.",
+      "redirect_uri": "http://localhost:8001/auth/google/callback",
+      "date": "2026-10-18"
+    },
+    "openai": {
+      "status": "deferred_by_user",
+      "evidence": "User chose to continue with Claude and Gemini for now."
+    },
+    "github": {
+      "status": "connected_read_only_verified",
+      "active_falkordb_workflows": 30,
+      "external_writes": "User exercised fork creation and a review-branch push through Atlas; branch verified read-only. No matching workflow or PR is recorded; this agent made no GitHub writes."
+    }
+  },
+  "provider_plan": {
+    "active": [
+      "anthropic",
+      "gemini"
+    ],
+    "deferred_by_user": [
+      "openai"
+    ]
+  },
+  "supplemental_verification": {
+    "public_github": {
+      "full_suite_passed": 49,
+      "new_tests": 17,
+      "lint": "passed",
+      "frontend_build": "passed",
+      "docker_build": "passed",
+      "paid_calls": 0
+    }
+  },
+  "change_evaluation": "outputs/atlas-change-evaluation.json",
+  "sandbox_evaluation": "outputs/atlas-sandbox-evaluation.json"
+}

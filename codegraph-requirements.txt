@@ -1,0 +1,4 @@
+falkordb-code-graph @ git+https://github.com/FalkorDB/Code-Graph.git@f5e72c074bf8b529d71472162e6d43cd6caaa5b6
+# The pinned resolver uses Language.query, removed in tree-sitter 0.26.
+tree-sitter==0.25.2
+tree-sitter-python==0.25.0

@@ -1,0 +1,213 @@
+{
+  "provider": "gemini",
+  "model": "gemini-2.5-flash",
+  "validation": {
+    "status": "failed",
+    "baseline": {
+      "exit_code": 1,
+      "timed_out": false,
+      "output": "F...                                                                     [100%]\n=================================== FAILURES ===================================\n__________________________ test_annual_total_rounding __________________________\n\n    def test_annual_total_rounding():\n        # Test case where rounding up a half-cent should occur\n        # 10.045 * 12 * 0.90 = 108.486, which should round to 108.49\n        assert annual_total(Decimal(\"10.045\")) == Decimal(\"108.49\")\n        # Test case where rounding down should occur (e.g., .484 should be .48)\n>       assert annual_total(Decimal(\"10.044\")) == Decimal(\"108.47\")\nE       AssertionError: assert Decimal('108.48') == Decimal('108.47')\nE        +  where Decimal('108.48') = annual_total(Decimal('10.044'))\nE        +    where Decimal('10.044') = Decimal('10.044')\nE        +  and   Decimal('108.47') = Decimal('108.47')\n\ntests/test_billing.py:10: AssertionError\n=========================== short test summary info ============================\nFAILED tests/test_billing.py::test_annual_total_rounding - AssertionError: as...\n1 failed, 3 passed in 0.01s\n",
+      "command": [
+        "/usr/bin/timeout",
+        "--signal=KILL",
+        "65",
+        "/app/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "--",
+        "tests"
+      ],
+      "isolated": true
+    },
+    "proposed": {
+      "exit_code": 1,
+      "timed_out": false,
+      "output": "F...                                                                     [100%]\n=================================== FAILURES ===================================\n__________________________ test_annual_total_rounding __________________________\n\n    def test_annual_total_rounding():\n        # Test case where rounding up a half-cent should occur\n        # 10.045 * 12 * 0.90 = 108.486, which should round to 108.49\n        assert annual_total(Decimal(\"10.045\")) == Decimal(\"108.49\")\n        # Test case where rounding down should occur (e.g., .484 should be .48)\n>       assert annual_total(Decimal(\"10.044\")) == Decimal(\"108.47\")\nE       AssertionError: assert Decimal('108.48') == Decimal('108.47')\nE        +  where Decimal('108.48') = annual_total(Decimal('10.044'))\nE        +    where Decimal('10.044') = Decimal('10.044')\nE        +  and   Decimal('108.47') = Decimal('108.47')\n\ntests/test_billing.py:10: AssertionError\n=========================== short test summary info ============================\nFAILED tests/test_billing.py::test_annual_total_rounding - AssertionError: as...\n1 failed, 3 passed in 0.01s\n",
+      "command": [
+        "/usr/bin/timeout",
+        "--signal=KILL",
+        "65",
+        "/app/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "--",
+        "tests"
+      ],
+      "isolated": true
+    },
+    "regression_verified": false,
+    "patch_hash": "36f9c3b8846d065330e10a9d2ad0ac079abbf583b40de325ab2903834289d6d4",
+    "base_sha": "bb5b10ca9241acaf17d32361892d6bbd0642dec3",
+    "mode": "pytest",
+    "test_path": "tests",
+    "at": "2026-10-18T11:28:50.604415+00:00"
+  },
+  "api_budget": {
+    "cap_inr": 500.0,
+    "reserved_inr": 397.68,
+    "remaining_inr": 102.32
+  },
+  "synthetic": true,
+  "github_writes": 0,
+  "attempts": [
+    {
+      "attempt": 1,
+      "validation": {
+        "status": "failed",
+        "baseline": {
+          "exit_code": 4,
+          "timed_out": false,
+          "output": "ERROR: file or directory not found: tests\n\n\nno tests ran in 0.00s\n",
+          "command": [
+            "/usr/bin/timeout",
+            "--signal=KILL",
+            "65",
+            "/app/.venv/bin/python",
+            "-m",
+            "pytest",
+            "-q",
+            "-p",
+            "no:cacheprovider",
+            "--",
+            "tests"
+          ],
+          "isolated": true
+        },
+        "proposed": {
+          "exit_code": 4,
+          "timed_out": false,
+          "output": "ERROR: file or directory not found: tests\n\n\nno tests ran in 0.00s\n",
+          "command": [
+            "/usr/bin/timeout",
+            "--signal=KILL",
+            "65",
+            "/app/.venv/bin/python",
+            "-m",
+            "pytest",
+            "-q",
+            "-p",
+            "no:cacheprovider",
+            "--",
+            "tests"
+          ],
+          "isolated": true
+        },
+        "regression_verified": false,
+        "patch_hash": "b393842895bb6081802e6968b5d134a08f5507b838d29f6a863ed8f76f31dc83",
+        "base_sha": "bb5b10ca9241acaf17d32361892d6bbd0642dec3",
+        "mode": "pytest",
+        "test_path": "tests",
+        "at": "2026-10-18T11:09:56.639556+00:00"
+      },
+      "detail": "Model omitted regression test; both runs exited 4 because tests directory was missing."
+    },
+    {
+      "attempt": 2,
+      "validation": {
+        "status": "failed",
+        "baseline": {
+          "exit_code": 1,
+          "timed_out": false,
+          "output": "F...                                                                     [100%]\n=================================== FAILURES ===================================\n__________________________ test_annual_total_rounding __________________________\n\n    def test_annual_total_rounding():\n        # Test case where rounding up a half-cent should occur\n        # 10.045 * 12 * 0.90 = 108.486, which should round to 108.49\n        assert annual_total(Decimal(\"10.045\")) == Decimal(\"108.49\")\n        # Test case where rounding down should occur (e.g., .484 should be .48)\n>       assert annual_total(Decimal(\"10.044\")) == Decimal(\"108.47\")\nE       AssertionError: assert Decimal('108.48') == Decimal('108.47')\nE        +  where Decimal('108.48') = annual_total(Decimal('10.044'))\nE        +    where Decimal('10.044') = Decimal('10.044')\nE        +  and   Decimal('108.47') = Decimal('108.47')\n\ntests/test_billing.py:10: AssertionError\n=========================== short test summary info ============================\nFAILED tests/test_billing.py::test_annual_total_rounding - AssertionError: as...\n1 failed, 3 passed in 0.01s\n",
+          "command": [
+            "/usr/bin/timeout",
+            "--signal=KILL",
+            "65",
+            "/app/.venv/bin/python",
+            "-m",
+            "pytest",
+            "-q",
+            "-p",
+            "no:cacheprovider",
+            "--",
+            "tests"
+          ],
+          "isolated": true
+        },
+        "proposed": {
+          "exit_code": 1,
+          "timed_out": false,
+          "output": "F...                                                                     [100%]\n=================================== FAILURES ===================================\n__________________________ test_annual_total_rounding __________________________\n\n    def test_annual_total_rounding():\n        # Test case where rounding up a half-cent should occur\n        # 10.045 * 12 * 0.90 = 108.486, which should round to 108.49\n        assert annual_total(Decimal(\"10.045\")) == Decimal(\"108.49\")\n        # Test case where rounding down should occur (e.g., .484 should be .48)\n>       assert annual_total(Decimal(\"10.044\")) == Decimal(\"108.47\")\nE       AssertionError: assert Decimal('108.48') == Decimal('108.47')\nE        +  where Decimal('108.48') = annual_total(Decimal('10.044'))\nE        +    where Decimal('10.044') = Decimal('10.044')\nE        +  and   Decimal('108.47') = Decimal('108.47')\n\ntests/test_billing.py:10: AssertionError\n=========================== short test summary info ============================\nFAILED tests/test_billing.py::test_annual_total_rounding - AssertionError: as...\n1 failed, 3 passed in 0.01s\n",
+          "command": [
+            "/usr/bin/timeout",
+            "--signal=KILL",
+            "65",
+            "/app/.venv/bin/python",
+            "-m",
+            "pytest",
+            "-q",
+            "-p",
+            "no:cacheprovider",
+            "--",
+            "tests"
+          ],
+          "isolated": true
+        },
+        "regression_verified": false,
+        "patch_hash": "36f9c3b8846d065330e10a9d2ad0ac079abbf583b40de325ab2903834289d6d4",
+        "base_sha": "bb5b10ca9241acaf17d32361892d6bbd0642dec3",
+        "mode": "pytest",
+        "test_path": "tests",
+        "at": "2026-10-18T11:28:50.604415+00:00"
+      },
+      "detail": "Retried with explicit regression-test instruction and prior failure context."
+    }
+  ],
+  "reviewed_correction": {
+    "performed_by": "agent through Atlas manual review UI",
+    "detail": "Corrected 10.044 annual total expectation to 108.48; added exact 0.0375 half-cent regression. No further model call.",
+    "validation": {
+      "status": "passed",
+      "baseline": {
+        "exit_code": 1,
+        "timed_out": false,
+        "output": "F...                                                                     [100%]\n=================================== FAILURES ===================================\n__________________________ test_annual_total_rounding __________________________\n\n    def test_annual_total_rounding():\n>       assert annual_total(Decimal(\"0.0375\")) == Decimal(\"0.41\")\nE       AssertionError: assert Decimal('0.40') == Decimal('0.41')\nE        +  where Decimal('0.40') = annual_total(Decimal('0.0375'))\nE        +    where Decimal('0.0375') = Decimal('0.0375')\nE        +  and   Decimal('0.41') = Decimal('0.41')\n\ntests/test_billing.py:6: AssertionError\n=========================== short test summary info ============================\nFAILED tests/test_billing.py::test_annual_total_rounding - AssertionError: as...\n1 failed, 3 passed in 0.01s\n",
+        "command": [
+          "/usr/bin/timeout",
+          "--signal=KILL",
+          "65",
+          "/app/.venv/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "--",
+          "tests"
+        ],
+        "isolated": true
+      },
+      "proposed": {
+        "exit_code": 0,
+        "timed_out": false,
+        "output": "....                                                                     [100%]\n4 passed in 0.00s\n",
+        "command": [
+          "/usr/bin/timeout",
+          "--signal=KILL",
+          "65",
+          "/app/.venv/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "--",
+          "tests"
+        ],
+        "isolated": true
+      },
+      "regression_verified": true,
+      "patch_hash": "25b35d0eefbe70b85ec5213458ea56baad5d38f2b539e2cc0e9a27f23f226804",
+      "base_sha": "bb5b10ca9241acaf17d32361892d6bbd0642dec3",
+      "mode": "pytest",
+      "test_path": "tests",
+      "at": "2026-10-18T11:31:56.350616+00:00"
+    }
+  }
+}

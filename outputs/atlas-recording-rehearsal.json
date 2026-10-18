@@ -1,0 +1,51 @@
+{
+  "verified_at": "2026-10-18T14:40:44.871819+00:00",
+  "started_at": "2026-10-18T14:36:39.840Z",
+  "guided_sample": {
+    "synthetic": true,
+    "live_ai_generation": false,
+    "real_isolated_tests": true,
+    "validated_at": "2026-10-18T14:36:42.497396+00:00",
+    "status": "passed",
+    "baseline_exit_code": 1,
+    "proposed_exit_code": 0,
+    "regression_verified": true,
+    "patch_hash_matches": true,
+    "tests_passed": 3
+  },
+  "api_budget": {
+    "cap_inr": 2000.0,
+    "reserved_inr": 533.57,
+    "remaining_inr": 1466.43
+  },
+  "automated_tests": {
+    "backend_passed": 102,
+    "frontend_citation_tests_passed": 2,
+    "dependency_warnings": 3
+  },
+  "interface": {
+    "routine_notices": "neutral and consolidated",
+    "advanced_configuration": "collapsed",
+    "test_logs": "collapsed by default",
+    "duplicate_workspaces": "grouped under preserved history",
+    "completion": "Sample checks complete with reviewed patch download"
+  },
+  "native_ci": {
+    "default": "validation draft PR inside connected account public fork",
+    "ownership_and_retry_recovery": "covered with mocked GitHub writes",
+    "exact_reviewed_head_guards": "preserved",
+    "live_creation_verified": false,
+    "rust_ci_passed": false
+  },
+  "agent_activity": {
+    "paid_model_calls_this_turn": 0,
+    "github_writes_this_turn": 0,
+    "upstream_pr_created": false,
+    "video_recorded": false
+  },
+  "screenshots": [
+    "outputs/atlas-recording-checks.png",
+    "outputs/atlas-recording-complete.png"
+  ],
+  "recording_guide": "DEMO.md"
+}

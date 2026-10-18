@@ -1,0 +1,17 @@
+.env
+.env.*
+!.env.example
+.venv/
+.tools/
+.atlas-data/
+node_modules/
+frontend/dist/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.pyc
+*.tsbuildinfo
+test-results/
+playwright-report/
+venv/
+outputs/*.zip

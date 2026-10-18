@@ -1,0 +1,14 @@
+.env
+.env.*
+!.env.example
+.git
+.venv
+.tools
+.atlas-data
+**/node_modules
+**/venv
+**/__pycache__
+**/dist
+.pytest_cache
+.ruff_cache
+outputs

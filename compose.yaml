@@ -1,0 +1,54 @@
+services:
+  atlas:
+    profiles: ["app"]
+    image: atlas-workspace:local
+    build:
+      context: .
+      target: app
+    env_file: .env
+    environment:
+      FALKORDB_HOST: falkordb
+      FALKORDB_PORT: "6379"
+      ATLAS_BASE_URL: http://localhost:8001
+      ATLAS_RUNNER_URL: http://runner:9002
+      ATLAS_RUNNER_TOKEN_FILE: /run/atlas-runner/token
+    ports:
+      - "127.0.0.1:8001:8001"
+    volumes:
+      - ./.atlas-data:/app/.atlas-data
+      - runner-token:/run/atlas-runner
+    depends_on:
+      falkordb:
+        condition: service_healthy
+  runner:
+    profiles: ["app"]
+    image: atlas-workspace:local
+    command: ["/app/.venv/bin/uvicorn", "atlas.runner:app", "--host", "0.0.0.0", "--port", "9002", "--no-access-log"]
+    environment:
+      ATLAS_RUNNER_TOKEN_FILE: /run/atlas-runner/token
+    volumes:
+      - runner-token:/run/atlas-runner:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+  sandbox:
+    profiles: ["tools"]
+    image: atlas-python-sandbox:local
+    build:
+      context: .
+      target: sandbox
+  falkordb:
+    image: falkordb/falkordb@sha256:b0bdcac2cbaff989e77cb0610439b7a9289e86de033ccbbd4368b66fb680ae7a
+    ports:
+      - "127.0.0.1:6379:6379"
+      - "127.0.0.1:3001:3000"
+    volumes:
+      - falkordb:/data
+    command: ["--appendonly", "yes", "--appendfsync", "everysec"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 15
+volumes:
+  runner-token:
+  falkordb:

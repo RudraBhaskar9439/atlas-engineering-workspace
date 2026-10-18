@@ -1,0 +1,15 @@
+# Final Recommendation for Zara Patel
+
+**Status**: Orbit launch [decision-launch] **requires review** and cannot proceed.
+
+**Why**: The required condition "Authentication issue is resolved" [fact-auth-closed] has failed. The `Refresh-token regression` [AUTH-42@4] is currently `open`, not `closed`.
+
+**Authentication Owner**: Maya Chen [person-maya] owns the Authentication service module [module-auth], which supports the Orbit project [LAUNCH-PLAN@1, DOC-022A725E188E@1].
+
+**Assigned Investigator**: Noah Williams [person-noah] is assigned to resolve [AUTH-42@4].
+
+**Your Next Step**: Contact **Noah Williams** to prioritize closing AUTH-42. The `Authentication verification` [VERIFY-AUTH@1] already passed; the blocker is reopening and resolving the identified regression—specifically the `rotate_refresh_token` function [code-1] allowing token replay after rotation.
+
+**Note**: A restricted security audit [SECURITY-AUDIT@1] also remains pending [decision-security]. Confirm whether security clearance is required before launch approval.
+
+Do not approve the launch until AUTH-42@4 transitions to `closed`.

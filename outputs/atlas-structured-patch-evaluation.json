@@ -1,0 +1,78 @@
+{
+  "repository": "falkordb/falkordb",
+  "issue": 3246,
+  "base_sha": "0f45a8685aa8d542f026b4f5f6bcaa0fbb43c1c9",
+  "run_id": "8a60b2afd1a14545ba4fc150aef11b53",
+  "provider": "gemini",
+  "model": "gemini-2.5-flash",
+  "reused_context": [
+    "graph/src/graph/graphblas/tensor.rs",
+    "tests/flow/test_multiple_edges.py"
+  ],
+  "source": "Previously downloaded Git objects verified against each pinned blob SHA; GitHub public REST rate-limited during verification.",
+  "github_writes": 0,
+  "regression_tests_run": false,
+  "status": "passed",
+  "seconds": 12.32,
+  "api_budget": {
+    "cap_inr": 500.0,
+    "reserved_inr": 495.06,
+    "remaining_inr": 4.94
+  },
+  "attempts": [
+    {
+      "provider": "anthropic",
+      "model": "claude-haiku-4-5-20251001",
+      "status": "rejected",
+      "detail": "The model reached its output limit before completing the structured response. Retry generation or choose another model. Your saved work is preserved.",
+      "seconds": 40.86
+    },
+    {
+      "provider": "gemini",
+      "model": "gemini-2.5-flash",
+      "status": "rejected",
+      "seconds": 16.64,
+      "detail": "An edit did not uniquely match its original source. Select context and regenerate."
+    },
+    {
+      "provider": "gemini",
+      "model": "gemini-2.5-flash",
+      "status": "passed",
+      "seconds": 12.32
+    }
+  ],
+  "output_limit": 6000,
+  "summary": "The `Tensor::resize` method should be grow-only. Currently, if new dimensions are smaller than the existing ones, it shrinks the matrix but does not prune the `me` (multi-edge) matrix. This leads to multi-edge IDs of cut-off pairs remaining, causing incorrect edge counts and iterations.",
+  "files": [
+    "graph/src/graph/graphblas/tensor.rs"
+  ],
+  "usage": {
+    "completion_tokens": 2334,
+    "prompt_tokens": 37459,
+    "total_tokens": 39793,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": null,
+      "audio_tokens": null,
+      "reasoning_tokens": null,
+      "rejected_prediction_tokens": null,
+      "text_tokens": 2334,
+      "image_tokens": null,
+      "video_tokens": null
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": null,
+      "cached_tokens": null,
+      "text_tokens": 37459,
+      "image_tokens": null,
+      "video_tokens": null
+    },
+    "cache_read_input_tokens": null,
+    "finish_reason": "stop"
+  },
+  "revision": 2,
+  "content_review": {
+    "status": "needs_correction",
+    "detail": "Review required: the generated regression test calls resize(4, 4), which triggers the new debug assertion, and expects shrinking although the implementation is grow-only. Correct this test, review the RDB resize caller named by the issue, and run native checks before publication. No native checks have run."
+  },
+  "saved_to_original_workspace": true
+}

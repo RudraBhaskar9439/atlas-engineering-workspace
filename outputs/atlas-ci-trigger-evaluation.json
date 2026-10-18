@@ -1,0 +1,18 @@
+{
+  "repository": "rudrabhaskar9439/falkordb",
+  "branch": "atlas/issue-3246-2fe7d081-e337e53a",
+  "head_sha": "de014523296ed59e6f6338e6e7d1ba80b9e1ed59",
+  "status": "not_started",
+  "matching_runs": 0,
+  "actions_enabled": true,
+  "rust_push_branches": [
+    "main",
+    "[0-9]*.[0-9]*"
+  ],
+  "rust_pr_events": [
+    "pull_request",
+    "merge_group"
+  ],
+  "github_writes_by_agent": 0,
+  "model_calls_by_agent": 0
+}

@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "native_proposal": {
+    "python_mode_disabled": true,
+    "isolated_run_action_hidden": true,
+    "github_ci_selected": true,
+    "explanation_visible": true,
+    "native_tests_run": false
+  },
+  "python_proposal": {
+    "button_enabled": true,
+    "ui_triggered_validation": {
+      "status": "passed",
+      "validation_at": "2026-10-18T14:16:16.616433+00:00",
+      "started_at": "2026-10-18T14:16:14.539Z",
+      "baseline_exit": 1,
+      "proposed_exit": 0,
+      "regression_verified": true,
+      "patch_matches": true
+    },
+    "sample_is_synthetic": true
+  },
+  "backend_tests_passed": 99,
+  "native_screenshot": "outputs/atlas-native-runner-guidance.png",
+  "python_screenshot": "outputs/atlas-isolated-checks-passed.png",
+  "github_writes": 0,
+  "model_calls": 0
+}

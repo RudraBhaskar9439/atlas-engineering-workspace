@@ -1,0 +1,40 @@
+{
+  "public_repository": "falkordb/falkordb",
+  "provider": "anthropic",
+  "model": "claude-haiku-4-5-20251001",
+  "saved_workspace_modified": false,
+  "github_writes": 0,
+  "scope": "Live proposal generation and exact-source validation; native tests not run.",
+  "status": "passed",
+  "changed_files": 1,
+  "completion_tokens": 2006,
+  "finish_reason": "stop",
+  "attempts": [
+    {
+      "finish_reason": "stop",
+      "completion_tokens": 2006,
+      "error": null
+    }
+  ],
+  "seconds": 23.45,
+  "verified_at": "2026-10-18T14:52:28.108587+00:00",
+  "api_budget": {
+    "cap_inr": 2000.0,
+    "reserved_inr": 681.72,
+    "remaining_inr": 1318.28
+  },
+  "response_limits": {
+    "initial_max_tokens": 12000,
+    "retry_max_tokens": 16000,
+    "retries": 1,
+    "provider_limit_respected": true,
+    "large_structured_timeout_seconds": 120,
+    "partial_proposals_saved": false
+  },
+  "automated_verification": {
+    "backend_tests_passed": 107,
+    "focused_output_tests_passed": 15,
+    "release_checks_passed": 7,
+    "dependency_warnings": 3
+  }
+}

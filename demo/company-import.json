@@ -1,0 +1,16 @@
+{
+  "scope": "public",
+  "entities": [
+    {"id":"person-ada","kind":"Person","title":"Ada Rivera","properties":{"role":"Customer success lead","initials":"AR"}},
+    {"id":"decision-customer","kind":"Decision","title":"Confirm customer rollout","properties":{"description":"Confirm rollout once the customer requirement is accepted."}},
+    {"id":"fact-requirement","kind":"Fact","title":"Customer requirement accepted","properties":{"field":"status","equals":"accepted"}}
+  ],
+  "sources": [
+    {"id":"CUSTOMER-17","title":"Customer rollout requirement","content":"Ada owns the customer rollout. The customer has accepted the current scope.","metadata":{"status":"accepted","type":"ticket","owner":"Ada Rivera"}}
+  ],
+  "relationships": [
+    {"source":"person-ada","target":"decision-customer","kind":"OWNS"},
+    {"source":"decision-customer","target":"fact-requirement","kind":"DEPENDS_ON"},
+    {"source":"fact-requirement","target":"CUSTOMER-17","kind":"CITES"}
+  ]
+}
